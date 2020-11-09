@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import Car from './Cars';
 
-class MyCars extends React.Component {
+class MyCars extends Component {
 
     state = {
         voitures: [
@@ -40,7 +40,7 @@ class MyCars extends React.Component {
         const curentYear = new Date().getFullYear();
 
         return(
-            <div>
+            <>
                 <h1 onMouseOver = {this.addStyle}>{this.props.title}</h1>
                 <p onCopy = {this.noCopy}>Show popup when copy.</p>
 
@@ -50,15 +50,24 @@ class MyCars extends React.Component {
                 <Car year={curentYear - this.state.voitures[1].year + ' ans'}>{this.state.voitures[1].name}</Car>
         <Car year={curentYear - this.state.voitures[2].year + ' ans'} color={this.state.voitures[2].color}>{this.state.voitures[2].name}</Car> */}
             
-                {
-                    this.state.voitures.map((voiture, index) => {
-                        return(
-                            <Car key={index} year={curentYear - voiture.year + ' ans'} color={voiture.color}>{voiture.name}</Car>
-                        )
-                    })
-                }
+                <table className="carsTable">
+                    <tr>
+                        <th>Marque</th>
+                        <th>Age</th>
+                        <th>Couleur</th>
+                    </tr>
+                    {
+                        this.state.voitures.map((voiture, index) => {
+                            return(
+                                <Fragment key={index}>
+                                    <Car year={curentYear - voiture.year + ' ans'} color={voiture.color}>{voiture.name}</Car>
+                                </Fragment>
+                            )
+                        })
+                    }
+                </table>
             
-            </div>
+            </>
         ) 
     }
 }
